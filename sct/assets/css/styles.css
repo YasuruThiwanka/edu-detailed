@@ -1,0 +1,50 @@
+:root {
+    --bs-primary: #4338CA; /* Indigo 700 */
+    --bs-secondary: #10B981; /* Emerald 500 */
+    --bs-success: #10B981; /* Emerald 500 */
+    --bs-warning: #F59E0B; /* Amber 500 */
+    --bs-danger: #F43F5E; /* Rose 500 */
+    --bs-light: #F8FAFC; /* Slate 50 */
+    --bs-dark: #1F2937; /* Slate 800 */
+    --bs-body-bg: #F8FAFC; /* Slate 50 for body background */
+}
+
+/* Recompile Bootstrap with these colors or override components */
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.progress-bar {
+    background-color: var(--bs-primary);
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: var(--bs-primary);
+}
+
+/* Button hover lift */
+.btn {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Reduced motion query */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SCT</title>
+    <link rel="icon" href="assets/img/logo-sct.svg" type="image/svg+xml">
+
+    <!-- External Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body class="bg-light">
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="vh-100 p-3 bg-dark text-white" style="width: 280px;">
+            <a class="navbar-brand d-flex align-items-center mb-4" href="index.html">
+                <img src="assets/img/logo-sct.svg" alt="SCT Logo" width="40" height="40" class="me-2">
+                <span>SCT</span>
+            </a>
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white active" href="dashboard.html"><i class="bi bi-grid me-2"></i>Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="log.html"><i class="bi bi-pencil-square me-2"></i>Log Progress</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="leaderboard.html"><i class="bi bi-trophy me-2"></i>Leaderboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="history.html"><i class="bi bi-clock-history me-2"></i>History</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="settings.html"><i class="bi bi-gear me-2"></i>Rules & Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="notifications.html"><i class="bi bi-bell me-2"></i>Notifications</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="flex-grow-1">
+            <!-- Top Bar -->
+            <header class="p-3 mb-4 border-bottom bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h5 mb-0">Hey, <span id="user-greeting">User</span> 👋</h1>
+                        <small id="week-dates">Week of ...</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-primary me-3" id="user-avatar-initial">U</span>
+                        <a href="login.html" class="btn btn-sm btn-outline-secondary">Logout</a>
+                    </div>
+                </div>
+            </header>
+
+            <main class="p-4">
+                <!-- KPI Cards -->
+                <div class="row g-4 mb-4" id="kpi-cards" data-api-endpoint="/api/dashboard/kpis">
+                    <!-- KPI cards will be rendered here by ui.js -->
+                </div>
+
+                <!-- Charts -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-8">
+                        <div class="card shadow-sm">
+                            <div class="card-body" data-api-endpoint="/api/charts/weekly-trend">
+                                <h5 class="card-title">Weekly Points Trend</h5>
+                                <canvas id="weekly-points-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm">
+                             <div class="card-body" data-api-endpoint="/api/charts/comparison">
+                                <h5 class="card-title">Yasuru vs. Anuja (This Week)</h5>
+                                <canvas id="yasuru-vs-anuja-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gamification Widgets -->
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Study Streak</h5>
+                                <div class="d-flex align-items-center justify-content-center display-4">
+                                    <i class="bi bi-flame text-danger me-2"></i>
+                                    <span id="study-streak-value">0</span> Weeks
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Weekly Goal Progress</h5>
+                                <div id="weekly-goal-progress" class="mt-3">
+                                    <!-- Progress bar will be rendered here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer is omitted in the dashboard view for a cleaner interface -->
+
+    <!-- External JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/store.js"></script>
+    <script src="assets/js/points.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/charts.js"></script>
+    <script src="assets/js/app.js"></script>
+
+</body>
+</html>
