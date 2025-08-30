@@ -22,10 +22,19 @@
      */
     function handleLogin(event) {
         event.preventDefault();
-        const selectedUserId = new FormData(loginForm).get('user-select');
-        if (selectedUserId) {
-            store.setCurrentUser(selectedUserId);
+        const formData = new FormData(loginForm);
+        const email = formData.get('email');
+        const password = formData.get('password');
+
+        const users = store.getUsers();
+        const foundUser = users.find(user => user.email === email && user.password === password);
+
+        if (foundUser) {
+            store.setCurrentUser(foundUser.id);
             window.location.href = 'dashboard.html';
+        } else {
+            ui.showToast('Invalid email or password.', 'danger');
+            loginForm.querySelector('input[name="password"]').value = '';
         }
     }
 
@@ -132,19 +141,6 @@
     }
 
 
-    /**
-     * Populates the user selection dropdown on the login page.
-     */
-    function populateUserSelect() {
-        const users = store.getUsers();
-        const userSelect = $('#user-select');
-        if (userSelect) {
-            userSelect.innerHTML = users.map(user =>
-                `<option value="${user.id}">${user.name}</option>`
-            ).join('');
-        }
-    }
-
     // --- Router (Page-specific logic) --- //
 
     function route() {
@@ -154,7 +150,6 @@
         const path = window.location.pathname;
 
         if (path.endsWith('login.html')) {
-            populateUserSelect();
             if (loginForm) loginForm.addEventListener('submit', handleLogin);
         } else if (path.endsWith('dashboard.html')) {
             const charts = window.sctCharts;

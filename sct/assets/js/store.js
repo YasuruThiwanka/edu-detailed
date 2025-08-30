@@ -12,8 +12,8 @@
     // --- Seed Data --- //
     const seedData = {
         users: [
-            { id: 'yasuru', name: 'Yasuru', avatar: 'Y', theme: 'light', weeklyGoal: 10 },
-            { id: 'anuja', name: 'Anuja', avatar: 'A', theme: 'light', weeklyGoal: 8 }
+            { id: 'yasuru', name: 'Yasuru', avatar: 'Y', theme: 'light', weeklyGoal: 10, email: 'yasuru@example.com', password: 'password123' },
+            { id: 'anuja', name: 'Anuja', avatar: 'A', theme: 'light', weeklyGoal: 8, email: 'anuja@example.com', password: 'password456' }
         ],
         pointRules: {
             hourPoint: 1,
