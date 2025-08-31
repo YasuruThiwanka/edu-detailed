@@ -121,6 +121,24 @@
 
     // --- Router (Page-specific logic) --- //
 
+    /**
+     * Populates the subject dropdown on the log page.
+     */
+    function populateSubjectDropdown() {
+        const user = store.getCurrentUser();
+        const modules = store.getModules();
+        const subjectSelect = $('#subject');
+
+        if (user && modules && subjectSelect) {
+            const userModules = modules[user.id] || [];
+            subjectSelect.innerHTML = userModules.map(module =>
+                `<option value="${module.code} - ${module.name}">${module.code} - ${module.name}</option>`
+            ).join('');
+        }
+    }
+
+    // --- Router (Page-specific logic) --- //
+
     function route() {
         // First, initialize shared UI elements like header and auth check
         ui.initSharedUI();
@@ -135,6 +153,7 @@
             ui.renderLeaderboard();
             charts.initLeaderboardChart();
         } else if (path.endsWith('log.html')) {
+            populateSubjectDropdown();
             if (logStudyForm) logStudyForm.addEventListener('submit', handleStudyLog);
             if (logCourseForm) logCourseForm.addEventListener('submit', handleCourseLog);
             ui.renderRecentLogs();

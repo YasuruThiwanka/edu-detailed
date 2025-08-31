@@ -61,35 +61,24 @@
             </header>
 
             <main class="p-4">
-                <!-- Head-to-Head Panel -->
-                <div class="row g-4 mb-4 text-center" id="head-to-head-panel">
-                    <!-- This will be rendered by ui.js -->
-                </div>
+                <header class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h3 mb-0">Leaderboard</h1>
+                </header>
 
-                <!-- Main Leaderboard Table -->
-                <div class="card shadow-sm mb-4" data-api-endpoint="/api/leaderboard">
+                <!-- Podium -->
+                <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">Weekly Rankings</h5>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>Name</th>
-                                        <th>Weekly Points</th>
-                                        <th>Lifetime Points</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="leaderboard-body">
-                                    <!-- Rows will be rendered by ui.js -->
-                                </tbody>
-                            </table>
+                        <h5 class="card-title text-center mb-4">Top Challengers</h5>
+                        <div class="d-flex justify-content-center align-items-end" id="leaderboard-podium" style="min-height: 200px;">
+                            <!-- Podium will be rendered by ui.js -->
                         </div>
                     </div>
                 </div>
 
+                <!-- Rest of the list will be added later if more than 2 users -->
+
                 <!-- Trend Chart -->
-                <div class="card shadow-sm mb-4">
+                <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">6-Week Trend</h5>
                         <canvas id="leaderboard-trend-chart"></canvas>

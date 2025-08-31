@@ -46,66 +46,59 @@
         </nav>
 
         <!-- Main Content -->
-        <div class="flex-grow-1">
-            <!-- Top Bar -->
-            <header class="p-3 mb-4 border-bottom bg-white">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h1 class="h5 mb-0">Hey, <span id="user-greeting">User</span> 👋</h1>
-                        <small id="week-dates">Week of ...</small>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <span class="badge bg-primary me-3" id="user-avatar-initial">U</span>
-                    </div>
+        <div class="flex-grow-1 p-4" style="overflow-y: auto;">
+            <header class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="h3 mb-0">Hello, <span id="user-greeting">User</span>! 👋</h1>
+                    <p class="text-muted mb-0" id="week-dates">Week of ...</p>
+                </div>
+                 <div class="d-flex align-items-center">
+                    <span class="badge bg-primary me-3 fs-5" id="user-avatar-initial">U</span>
                 </div>
             </header>
 
-            <main class="p-4">
-                <!-- KPI Cards -->
-                <div class="row g-4 mb-4" id="kpi-cards" data-api-endpoint="/api/dashboard/kpis">
-                    <!-- KPI cards will be rendered here by ui.js -->
-                </div>
-
-                <!-- Charts -->
-                <div class="row g-4 mb-4">
-                    <div class="col-lg-8">
-                        <div class="card shadow-sm">
-                            <div class="card-body" data-api-endpoint="/api/charts/weekly-trend">
-                                <h5 class="card-title">Weekly Points Trend</h5>
-                                <canvas id="weekly-points-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card shadow-sm">
-                             <div class="card-body" data-api-endpoint="/api/charts/comparison">
-                                <h5 class="card-title">Yasuru vs. Anuja (This Week)</h5>
-                                <canvas id="yasuru-vs-anuja-chart"></canvas>
-                            </div>
+            <main>
+                <!-- KPI Cards Section -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">This Week's Stats</h5>
+                        <div class="row g-3" id="kpi-cards" data-api-endpoint="/api/dashboard/kpis">
+                            <!-- KPI cards will be rendered here by ui.js -->
                         </div>
                     </div>
                 </div>
 
-                <!-- Gamification Widgets -->
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Study Streak</h5>
-                                <div class="d-flex align-items-center justify-content-center display-4">
-                                    <i class="bi bi-flame text-danger me-2"></i>
-                                    <span id="study-streak-value">0</span> Weeks
-                                </div>
-                            </div>
+                <!-- Yasuru vs Anuja Chart -->
+                <div class="card mb-4">
+                     <div class="card-body" data-api-endpoint="/api/charts/comparison">
+                        <h5 class="card-title">Yasuru vs. Anuja (This Week)</h5>
+                        <div style="height: 200px;">
+                            <canvas id="yasuru-vs-anuja-chart"></canvas>
                         </div>
                     </div>
+                </div>
+
+                <!-- Weekly Goal & Streak -->
+                 <div class="row g-4">
                     <div class="col-md-6">
-                        <div class="card shadow-sm">
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Weekly Goal Progress</h5>
                                 <div id="weekly-goal-progress" class="mt-3">
                                     <!-- Progress bar will be rendered here -->
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Study Streak</h5>
+                                <div class="d-flex align-items-center justify-content-center display-4">
+                                    <i class="bi bi-flame me-2" style="color: var(--app-orange);"></i>
+                                    <span id="study-streak-value">0</span>
+                                </div>
+                                <p class="text-muted mb-0">Weeks</p>
                             </div>
                         </div>
                     </div>

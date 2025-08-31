@@ -80,35 +80,25 @@
             if (!user) return;
 
             const weeklyStats = points.calculateWeeklyStats(user.id, points.getCurrentWeekInfo());
-            const lifetimeStats = points.calculateLifetimeStats(user.id);
 
             // KPI Cards
             const kpiContainer = $('#kpi-cards');
             if (kpiContainer) {
                 kpiContainer.innerHTML = `
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title text-muted">Weekly Points</h5>
-                                <p class="h2" data-kpi-value="${weeklyStats.totalPoints}">0</p>
-                            </div>
-                        </div>
+                    <div class="col-4 text-center">
+                        <i class="bi bi-star-fill fs-2" style="color: var(--app-purple);"></i>
+                        <p class="h4 mb-0 mt-2" data-kpi-value="${weeklyStats.totalPoints}">0</p>
+                        <small class="text-muted">Points</small>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title text-muted">Weekly Study Hours</h5>
-                                <p class="h2" data-kpi-value="${weeklyStats.studyHours}" data-format="float">0.0</p>
-                            </div>
-                        </div>
+                    <div class="col-4 text-center">
+                        <i class="bi bi-clock-fill fs-2" style="color: var(--app-green);"></i>
+                        <p class="h4 mb-0 mt-2" data-kpi-value="${weeklyStats.studyHours}" data-format="float">0.0</p>
+                        <small class="text-muted">Hours</small>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                             <div class="card-body">
-                                <h5 class="card-title text-muted">Courses Completed (Week)</h5>
-                                <p class="h2" data-kpi-value="${weeklyStats.coursesCompleted}">0</p>
-                            </div>
-                        </div>
+                    <div class="col-4 text-center">
+                        <i class="bi bi-patch-check-fill fs-2" style="color: var(--app-orange);"></i>
+                        <p class="h4 mb-0 mt-2" data-kpi-value="${weeklyStats.coursesCompleted}">0</p>
+                        <small class="text-muted">Courses</small>
                     </div>
                 `;
                 // Animate counters
@@ -143,7 +133,7 @@
         },
 
         /**
-         * Renders the leaderboard content, including the head-to-head panel and table.
+         * Renders the leaderboard with a podium style.
          */
         renderLeaderboard: function() {
             const users = store.getUsers();
@@ -151,46 +141,32 @@
 
             const leaderboardData = users.map(user => {
                 const weeklyStats = points.calculateWeeklyStats(user.id, currentWeek);
-                const lifetimeStats = points.calculateLifetimeStats(user.id);
                 return {
                     user,
                     weeklyPoints: weeklyStats.totalPoints,
-                    lifetimePoints: lifetimeStats.totalPoints
                 };
             }).sort((a, b) => b.weeklyPoints - a.weeklyPoints);
 
-            const leader = leaderboardData[0];
-            const headToHeadPanel = $('#head-to-head-panel');
-            if (headToHeadPanel) {
-                headToHeadPanel.innerHTML = leaderboardData.map((data, index) => {
-                    const isLeader = data.user.id === leader.user.id;
-                    return `
-                        <div class="col-6">
-                            <div class="card ${isLeader ? 'border-primary leader-pulse' : ''}">
-                                <div class="card-body">
-                                    <h3 class="card-title">${data.user.name} ${isLeader ? '🏆' : ''}</h3>
-                                    <p class="h4">${data.weeklyPoints} <span class="text-muted fs-6">pts this week</span></p>
-                                    <p class="text-muted">${data.lifetimePoints} lifetime pts</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
+            const podiumEl = $('#leaderboard-podium');
+            if (podiumEl) {
+                // Since there are only 2 users, we manually create a 2nd and 1st place
+                const secondPlace = leaderboardData[1];
+                const firstPlace = leaderboardData[0];
 
-            const leaderboardBody = $('#leaderboard-body');
-            if (leaderboardBody) {
-                leaderboardBody.innerHTML = leaderboardData.map((data, index) => {
-                    const isLeader = index === 0;
-                    return `
-                        <tr class="${isLeader ? 'table-primary' : ''}">
-                            <td>${index + 1}</td>
-                            <td>${data.user.name}</td>
-                            <td>${data.weeklyPoints}</td>
-                            <td>${data.lifetimePoints}</td>
-                        </tr>
-                    `;
-                }).join('');
+                podiumEl.innerHTML = `
+                    <div class="podium-stand second-place mx-2">
+                        <div class="podium-rank">2</div>
+                        <div class="podium-avatar">${secondPlace.user.avatar}</div>
+                        <div class="podium-name">${secondPlace.user.name}</div>
+                        <div class="podium-points">${secondPlace.weeklyPoints} pts</div>
+                    </div>
+                    <div class="podium-stand first-place mx-2">
+                        <div class="podium-rank">1 🏆</div>
+                        <div class="podium-avatar">${firstPlace.user.avatar}</div>
+                        <div class="podium-name">${firstPlace.user.name}</div>
+                        <div class="podium-points">${firstPlace.weeklyPoints} pts</div>
+                    </div>
+                `;
             }
         },
 

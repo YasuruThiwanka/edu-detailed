@@ -1,19 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 :root {
-    --bs-primary: #4338CA; /* Indigo 700 */
-    --bs-secondary: #10B981; /* Emerald 500 */
-    --bs-success: #10B981; /* Emerald 500 */
-    --bs-warning: #F59E0B; /* Amber 500 */
-    --bs-danger: #F43F5E; /* Rose 500 */
-    --bs-light: #F8FAFC; /* Slate 50 */
-    --bs-dark: #1F2937; /* Slate 800 */
-    --bs-body-bg: #F8FAFC; /* Slate 50 for body background */
+    --app-purple: #7c4dff;
+    --app-light-purple: #f2eefe;
+    --app-green: #00c853;
+    --app-orange: #ff9100;
+    --app-text: #333;
+    --bs-primary: var(--app-purple);
+    --bs-body-bg: #f7f8fc;
+    --bs-font-sans-serif: 'Poppins', sans-serif;
 }
 
-/* Recompile Bootstrap with these colors or override components */
+body {
+    font-family: var(--bs-font-sans-serif);
+    color: var(--app-text);
+}
+
+/* New Card Styles */
+.card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+/* Button Styles */
 .btn-primary {
     background-color: var(--bs-primary);
     border-color: var(--bs-primary);
+    border-radius: 0.75rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
 }
+
+/* Leaderboard Podium Styles */
+.podium-stand {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 150px;
+}
+.podium-stand.first-place {
+    background-color: var(--app-light-purple);
+    height: 180px;
+    border-bottom: 5px solid var(--app-purple);
+}
+.podium-stand.second-place {
+    background-color: #f7f8fc;
+    height: 150px;
+    border-bottom: 5px solid #e0e0e0;
+}
+.podium-rank {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--app-purple);
+}
+.podium-stand.second-place .podium-rank {
+    color: #9e9e9e;
+}
+.podium-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--app-purple);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0.5rem auto;
+}
+.podium-stand.second-place .podium-avatar {
+    background-color: #9e9e9e;
+}
+.podium-name {
+    font-weight: 600;
+}
+.podium-points {
+    font-size: 0.9rem;
+    color: #666;
+}
+
 
 .btn-primary:hover {
     opacity: 0.9;
@@ -38,6 +111,20 @@
 }
 
 /* Reduced motion query */
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .display-5 {
+        font-size: 2.5rem; /* Reduce font size on extra small screens */
+    }
+    #leaderboard-podium {
+        flex-direction: column;
+        align-items: center !important;
+    }
+    .podium-stand {
+        margin-bottom: 1rem;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
