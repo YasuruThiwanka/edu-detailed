@@ -9,34 +9,12 @@
 
     // --- DOM Element Selectors --- //
     const $ = (selector) => document.querySelector(selector);
-    const loginForm = $('#login-form');
     const logStudyForm = $('#log-study-form');
     const logCourseForm = $('#log-course-form');
     const settingsForm = $('#settings-form');
     // Add other forms and key elements as needed
 
     // --- Event Handlers --- //
-
-    /**
-     * Handles the login form submission.
-     */
-    function handleLogin(event) {
-        event.preventDefault();
-        const formData = new FormData(loginForm);
-        const email = formData.get('email');
-        const password = formData.get('password');
-
-        const users = store.getUsers();
-        const foundUser = users.find(user => user.email === email && user.password === password);
-
-        if (foundUser) {
-            store.setCurrentUser(foundUser.id);
-            window.location.href = 'dashboard.html';
-        } else {
-            ui.showToast('Invalid email or password.', 'danger');
-            loginForm.querySelector('input[name="password"]').value = '';
-        }
-    }
 
     /**
      * Handles the study log form submission.
@@ -149,9 +127,7 @@
 
         const path = window.location.pathname;
 
-        if (path.endsWith('login.html')) {
-            if (loginForm) loginForm.addEventListener('submit', handleLogin);
-        } else if (path.endsWith('dashboard.html')) {
+        if (path.endsWith('dashboard.html')) {
             const charts = window.sctCharts;
             ui.renderDashboard();
             charts.initDashboardCharts();

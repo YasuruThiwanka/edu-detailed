@@ -50,18 +50,11 @@
          * Initializes common UI elements present on all authenticated pages.
          */
         initSharedUI: function() {
-            const user = store.getCurrentUser();
+            let user = store.getCurrentUser();
+            // If no user is logged in (e.g., first visit), default to yasuru.
             if (!user) {
-                // Not logged in, redirect to login page
-                if (!window.location.pathname.endsWith('login.html') && !window.location.pathname.endsWith('index.html')) {
-                    window.location.href = 'login.html';
-                }
-                return;
-            }
-
-            // If on login page but already logged in, redirect to dashboard
-            if (window.location.pathname.endsWith('login.html')) {
-                window.location.href = 'dashboard.html';
+                store.setCurrentUser('yasuru');
+                user = store.getCurrentUser();
             }
 
             const userGreetingEl = $('#user-greeting');
